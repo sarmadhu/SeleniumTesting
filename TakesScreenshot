@@ -1,0 +1,11 @@
+import java.io.File;
+
+public static void takeSnapshot(WebDriver webdriver,String filewithPath)throws Exception
+	{
+		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+		File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+		File DestFile=new File(filewithPath);
+		FileUtils.copyFile(SrcFile, DestFile);
+	}
+
+value of filewithPath="D://test1.png"
