@@ -1,0 +1,49 @@
+public void readDataFromExcel(String filePath,String fileName,String sheetName) throws IOException
+	{
+		//creating an object of File class to open xlsx file.
+		File file=new File(filePath+"\\"+fileName);
+		//creating an object of FileInputStream to read excel file
+		FileInputStream inputStream = new FileInputStream(file);
+		Workbook TestData = null;
+		
+		//Finding the file extension by splitting file name in substring  and getting only extension name
+		String fileExtensionName = fileName.substring(fileName.indexOf("."));
+		
+		//Checking condition if the file is xlsx file
+
+	    if(fileExtensionName.equals(".xlsx")){
+
+	    //If it is xlsx file then creating object of XSSFWorkbook class
+	    	TestData=new XSSFWorkbook(inputStream);
+	    	
+	    	//Checking condition if the file is xls file
+
+	    } else if(fileExtensionName.equals(".xls")){
+
+	            //If it is xls file then create object of HSSFWorkbook class
+
+	            TestData = new HSSFWorkbook(inputStream);
+	    
+	}
+
+	    //Reading sheet inside the workbook by its name
+	    Sheet testSheet=TestData.getSheet(sheetName);
+	    
+	    //Finding number of rows in excel file
+	    int rowCount=testSheet.getLastRowNum()-testSheet.getFirstRowNum();
+	    
+	    //Creating Loop over all the rows of excel file to read it
+	    for(int i=0;i<rowCount+1;i++)
+	    {
+	    	Row row=testSheet.getRow(i);
+	    	
+	    	//Creating a loop to print the cell values in a row
+	    	for(int j=0;j<row.getLastCellNum();j++)
+	    	{
+	    		//Printing Excel data in Console
+	    		System.out.print(row.getCell(j).getStringCellValue()+"||");
+	    	}
+	    	System.out.println();
+	    }
+	    
+	}
